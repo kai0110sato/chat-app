@@ -64,6 +64,7 @@ public class RoomController {
       model.addAttribute("users", users);
       model.addAttribute("roomForm", new RoomForm());
       return "rooms/new";
+     
     }
     return "redirect:/";
   }
