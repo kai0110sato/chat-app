@@ -80,4 +80,10 @@ public class RoomController {
     }
     return "redirect:/";
   }
+
+  @PostMapping("/rooms/{roomId}/delete")
+  public String deleteRoom(@PathVariable Integer roomId) {
+    roomRepository.deleteById(roomId);
+    return "redirect:/";
+  }
 }
