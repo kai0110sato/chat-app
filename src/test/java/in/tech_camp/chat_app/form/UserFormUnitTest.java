@@ -3,12 +3,11 @@ package in.tech_camp.chat_app.form;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.verify;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import static org.mockito.Mockito.verify;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.validation.BindingResult;
@@ -73,6 +72,7 @@ public class UserFormUnitTest {
       Set<ConstraintViolation<UserForm>> violations = validator.validate(userForm, ValidationPriority1.class);
       assertEquals(1, violations.size());
       assertEquals("Password can't be blank", violations.iterator().next().getMessage());
+    }
 
     @Test
     public void emailはアットマークを含まないと登録できない() {
@@ -80,6 +80,7 @@ public class UserFormUnitTest {
       Set<ConstraintViolation<UserForm>> violations = validator.validate(userForm, ValidationPriority2.class);
       assertEquals(1, violations.size());
       assertEquals("Email should be valid", violations.iterator().next().getMessage());
+    }
 
     @Test
     public void passwordが5文字以下では登録できない() {
@@ -96,12 +97,13 @@ public class UserFormUnitTest {
       Set<ConstraintViolation<UserForm>> violations = validator.validate(userForm, ValidationPriority2.class);
       assertEquals(1, violations.size());
       assertEquals("Password should be between 6 and 128 characters", violations.iterator().next().getMessage());
-
+    }
     @Test
     public void passwordとpasswordConfirmationが不一致では登録できない() {
       userForm.setPasswordConfirmation("differentPassword");
       userForm.validatePasswordConfirmation(bindingResult);
       verify(bindingResult).rejectValue("passwordConfirmation", "error.user", "Password confirmation doesn't match Password");
+
     }
   }
 }
